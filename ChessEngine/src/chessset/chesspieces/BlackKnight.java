@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BlackKnight extends Piece {
 
     public BlackKnight(int size, int border, int i){
-        super(size, border, i, "file:images/chessset.chesspieces.BlackKnight.png");
+        super(size, border, i, "file:images/BlackKnight.png");
     }
 
     public boolean isWhite(){

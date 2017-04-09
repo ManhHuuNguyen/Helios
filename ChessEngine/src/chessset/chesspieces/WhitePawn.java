@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class WhitePawn extends Piece {
 
     public WhitePawn(int size, int border, int i) {
-        super(size, border, i, "file:images/chessset.chesspieces.WhitePawn.png");
+        super(size, border, i, "file:images/WhitePawn.png");
     }
 
     public boolean isWhite(){

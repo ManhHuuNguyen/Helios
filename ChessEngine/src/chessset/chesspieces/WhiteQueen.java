@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class WhiteQueen extends Piece {
 
     public WhiteQueen(int size, int border, int i){
-        super(size, border, i, "file:images/chessset.chesspieces.WhiteQueen.png");
+        super(size, border, i, "file:images/WhiteQueen.png");
     }
 
     public boolean isWhite(){
