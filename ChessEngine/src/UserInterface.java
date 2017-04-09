@@ -8,11 +8,11 @@ public class UserInterface extends GameGeneration{
 
     public void start(Stage primaryStage) throws Exception{
         Scene scene = new Scene(createContent());
-        long startTime = System.nanoTime();
-        int result = Perft.perftRoot(boards, history, WhiteTurn, 0, 5, map);
-        System.out.println("Total possibilities: " + result);
-        long endTime = System.nanoTime();
-        System.out.println("The speed is: " + result/((endTime-startTime)/1000000000) + " nodes per second");
+//        long startTime = System.nanoTime();
+//        int result = Perft.perftRoot(boards, history, WhiteTurn, 0, 5, map);
+//        System.out.println("Total possibilities: " + result);
+//        long endTime = System.nanoTime();
+//        System.out.println("The speed is: " + result/((endTime-startTime)/1000000000) + " nodes per second");
         primaryStage.setTitle("Helios");
         primaryStage.getIcons().add(new Image("file:images/icon.png"));
         primaryStage.setScene(scene);

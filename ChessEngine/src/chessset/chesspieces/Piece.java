@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public abstract class Piece extends StackPane {
 
     protected int tileSize;
-    protected int row, column;
+    public int row, column;
     protected Tile curTile;
     protected ImageView img;
 
