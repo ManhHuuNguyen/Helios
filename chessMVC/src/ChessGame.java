@@ -1,8 +1,8 @@
+import controller.GameController;
 import javafx.application.Application;
 import model.Board;
 import model.Helper;
 import model.Perft;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -13,10 +13,10 @@ public class ChessGame extends Application{
     public void start (Stage stage) throws Exception{
 
         Board board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-        GameView.initBoard();
-        Scene scene = new Scene(GameView.board, 572, 572);
+        Scene scene = new Scene(GameView.boardscreen, 572, 572);
+        GameController.addClickEvent(GameView.boardscreen, board);
         GameView.initMapPiece();
-        GameView.update(board);
+        GameView.initBoard(board);
         stage.setTitle("Helios");
         stage.getIcons().add(new Image("file:images/icon.png"));
         stage.setScene(scene);
