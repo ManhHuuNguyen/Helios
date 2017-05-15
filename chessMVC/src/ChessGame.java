@@ -12,7 +12,7 @@ public class ChessGame extends Application{
 
     public void start (Stage stage) throws Exception{
 
-        Board board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        Board board = new Board("rnbqkbnr/pppppppp/8/pP6/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
         Scene scene = new Scene(GameView.boardscreen, 572, 572);
         GameController.addClickEvent(GameView.boardscreen, board);
         GameView.initMapPiece();
@@ -38,8 +38,7 @@ public class ChessGame extends Application{
         System.out.println("There are: " + result + " nodes");
         System.out.println("It takes " + ((endTime-startTime)/1000000000) + " seconds");
         System.out.println("The speed is: " + result/((endTime-startTime)/1000000000) + " nodes per second");
-        Helper.BitBoardtoBoardArray(board.WK, board.WQ, board.WR, board.WB, board.WN, board.WP,
-                                    board.BK, board.BQ, board.BR, board.BB, board.BN, board.BP);
+        Helper.BitBoardtoBoardArray(board);
         System.out.println("Number of castling: " + Perft.testingSpecial);
     }
 

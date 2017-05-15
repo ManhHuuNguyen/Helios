@@ -18,7 +18,7 @@ public class Board {
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {" ", " ", " ", " ", " ", " ", " ", " "}
     };
-    public String history = "";
+    public String history = "1030";
 
     public Board(String fenString){
         String[] items = fenString.split("[/\\s]");
@@ -189,6 +189,7 @@ public class Board {
         int oldRow, oldColumn, newRow, newColumn;
         history += moveString;
         WhiteTurn = !WhiteTurn;
+        System.out.println(moveString);
         if (moveString.charAt(3) == 'P'){ // promotion
             if (moveString.charAt(4)=='P'){ // white pawn
                 oldRow = 1;
@@ -229,16 +230,32 @@ public class Board {
                 oldColumn = 4;
                 newRow = 7;
                 newColumn = moveString.charAt(1)-'0';
-                if (oldColumn > newColumn) WR = (WR^(1L<<56)) | (1L<<59);
-                else WR = (WR^(1L<<63)) | (1L<<61);
+                if (oldColumn > newColumn){
+                    WR = (WR^(1L<<56)) | (1L<<59);
+                    boardArray[7][0] = " ";
+                    boardArray[7][3] = "R";
+                }
+                else {
+                    WR = (WR^(1L<<63)) | (1L<<61);
+                    boardArray[7][7] = " ";
+                    boardArray[7][5] = "R";
+                }
             }
             else{// black
                 oldRow = 0;
                 oldColumn = 4;
                 newRow = 0;
                 newColumn = moveString.charAt(1)-'0';
-                if (oldColumn > newColumn) BR = (BR^1L) | (1L<<3);
-                else BR = (BR^(1L<<7)) | (1L<<5);
+                if (oldColumn > newColumn){
+                    BR = (BR^1L) | (1L<<3);
+                    boardArray[0][0] = " ";
+                    boardArray[0][3] = "R";
+                }
+                else{
+                    BR = (BR^(1L<<7)) | (1L<<5);
+                    boardArray[0][7] = " ";
+                    boardArray[0][5] = "R";
+                }
             }
         }
         else {

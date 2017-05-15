@@ -16,6 +16,7 @@ public class GameView {
     public static HashMap<String, Image> mapPiece = new HashMap<>();
     public static Pane boardscreen = new Pane();
     private static ArrayList<ImageView> pieces = new ArrayList<>();
+    public static Tile[] tileList = new Tile[64];
 
     public static void initMapPiece(){
         mapPiece.put("K", new Image("file:images/WhiteKing.png"));
@@ -48,6 +49,7 @@ public class GameView {
         for (int i=0; i<64; i++){
             Tile tile = new Tile(i);
             boardscreen.getChildren().add(tile);
+            tileList[i] = tile;
         }
         addLabels(new String[]{"A","A","B","B","C","C","D","D","E","E","F","F","G","G","H","H",
                                "8","8","7","7","6","6","5","5","4","4","3","3","2","2","1","1"},
@@ -55,10 +57,16 @@ public class GameView {
                         {376,3},{376,546},{440,3},{440,546},{504,3},{504,546},{8,48},{552,48},{8,112}, {552,112},
                         {8,176},{552,176},{8,240},{552,240},{8,304},{552,304},{8,372},{552,372},{8,436},{552,436},
                         {8,500},{552,500}});
-        update(boardModel);
+        updatePieces(boardModel);
     }
 
-    public static void update(Board boardModel){
+    public static void updateTiles(ArrayList<Integer> possibleDestination, int pieceSquare){
+        for (Tile tile: tileList) tile.changeColor(1);
+        for (int i: possibleDestination) tileList[i].changeColor(2);
+        if (pieceSquare != -1) tileList[pieceSquare].changeColor(3);
+    }
+
+    public static void updatePieces(Board boardModel){
         for (ImageView piece: pieces) piece.setImage(null);
         for (int row=0; row<boardModel.boardArray.length; row++){
             for (int column=0; column<boardModel.boardArray[row].length; column++){
