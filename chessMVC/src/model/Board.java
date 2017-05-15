@@ -8,7 +8,7 @@ public class Board {
     public long BK = 0L, BQ = 0L, BR = 0L, BB = 0L, BN = 0L, BP = 0L;
     public boolean castleWK = true, castleBK = true, castleWQ = true, castleBQ = true;
     public boolean WhiteTurn = true;
-    String boardArray[][] = {
+    public String boardArray[][] = {
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {" ", " ", " ", " ", " ", " ", " ", " "},
@@ -188,6 +188,7 @@ public class Board {
         // moveString 5 characters: old row old column, new row new column, piece name
         int oldRow, oldColumn, newRow, newColumn;
         history += moveString;
+        WhiteTurn = !WhiteTurn;
         if (moveString.charAt(3) == 'P'){ // promotion
             if (moveString.charAt(4)=='P'){ // white pawn
                 oldRow = 1;
