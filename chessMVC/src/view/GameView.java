@@ -60,10 +60,11 @@ public class GameView {
         updatePieces(boardModel);
     }
 
-    public static void updateTiles(ArrayList<Integer> possibleDestination, int pieceSquare){
+    public static void updateTiles(ArrayList<Integer> possibleDestination, int pieceSquare, ArrayList<Integer> checked){
         for (Tile tile: tileList) tile.changeColor(1);
         for (int i: possibleDestination) tileList[i].changeColor(2);
         if (pieceSquare != -1) tileList[pieceSquare].changeColor(3);
+        for (int i: checked) tileList[i].changeColor(4);
     }
 
     public static void updatePieces(Board boardModel){

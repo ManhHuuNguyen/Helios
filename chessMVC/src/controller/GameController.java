@@ -28,7 +28,18 @@ public class GameController {
 
     public static void isCheckMate(){}
 
-    public static void isChecked(){}
+    public static ArrayList<Integer> isChecked(Board board){
+        ArrayList<Integer> list = new ArrayList<>();
+        if ((board.WK & Moves.WKdangerZone(board.WQ, board.WR, board.WB, board.WN, board.WP,
+                board.BK, board.BQ, board.BR, board.BB, board.BN, board.BP)) != 0){
+            list.add(Long.numberOfTrailingZeros(board.WK));
+        }
+        if ((board.BK & Moves.BKdangerZone(board.WK, board.WQ, board.WR, board.WB, board.WN, board.WP,
+                board.BQ, board.BR, board.BB, board.BN, board.BP)) != 0){
+            list.add(Long.numberOfTrailingZeros(board.BK));
+        }
+        return list;
+    }
 
     public static void addClickEvent(Pane boardscreen, Board boardmodel){
         boardscreen.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -38,11 +49,12 @@ public class GameController {
 //                if (boardmodel.WhiteTurn && mousePos[0]<=7 && mousePos[1]<=7){
                 if (mousePos[0]<=7 && mousePos[1]<=7){
                     Character square = boardmodel.boardArray[mousePos[1]][mousePos[0]].charAt(0);
-                    if (Character.isUpperCase(square)){ //hey hey
+                    if (Character.isUpperCase(square)){
                         chosenPiece = square;
                         oldPos = mousePos;
                         ArrayList<Integer> highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
-                        GameView.updateTiles(highlightedTiles, oldPos[1]*8+oldPos[0]);
+                        ArrayList<Integer> checkedKings = isChecked(boardmodel);
+                        GameView.updateTiles(highlightedTiles, oldPos[1]*8+oldPos[0], checkedKings);
                     }
                     else if (chosenPiece != null && mousePos[0]<=7 && mousePos[1]<=7){
                         newPos = mousePos;
@@ -56,16 +68,21 @@ public class GameController {
                             oldPos = null;
                             newPos = null;
                             highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
-                            GameView.updateTiles(highlightedTiles, -1);
+                            ArrayList<Integer> checkedKings = isChecked(boardmodel);
+                            GameView.updateTiles(highlightedTiles, -1, checkedKings);
+                            // AI makes move
                             AI.AImakeMove(boardmodel);
                             GameView.updatePieces(boardmodel);
+                            checkedKings = isChecked(boardmodel);
+                            GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
                         }
                         else{
                             chosenPiece = null;
                             oldPos = null;
                             newPos = null;
                             highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
-                            GameView.updateTiles(highlightedTiles, -1);
+                            ArrayList<Integer> checkedKings = isChecked(boardmodel);
+                            GameView.updateTiles(highlightedTiles, -1, checkedKings);
                         }
                     }
                 }

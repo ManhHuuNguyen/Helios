@@ -18,7 +18,7 @@ public class Board {
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {" ", " ", " ", " ", " ", " ", " ", " "}
     };
-    public String history = "1131";
+    public String history = "";
 
     public Board(String fenString){
         String[] items = fenString.split("[/\\s]");
