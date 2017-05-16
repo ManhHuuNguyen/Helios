@@ -3,9 +3,10 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import model.AI;
 import model.Board;
-import model.Helper;
 import model.Highlight;
+import model.Moves;
 import view.GameView;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class GameController {
 
     public static void takeTurn(Board board){
         if (board.WhiteTurn){
+
         }
         else {
 
@@ -36,7 +38,7 @@ public class GameController {
 //                if (boardmodel.WhiteTurn && mousePos[0]<=7 && mousePos[1]<=7){
                 if (mousePos[0]<=7 && mousePos[1]<=7){
                     Character square = boardmodel.boardArray[mousePos[1]][mousePos[0]].charAt(0);
-                    if (Character.isUpperCase(square)){
+                    if (Character.isUpperCase(square)){ //hey hey
                         chosenPiece = square;
                         oldPos = mousePos;
                         ArrayList<Integer> highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
@@ -50,12 +52,21 @@ public class GameController {
                             String moveString = generateMoveString(chosenPiece, oldPos, newPos, empty);
                             boardmodel.movePiece(moveString);
                             GameView.updatePieces(boardmodel);
+                            chosenPiece = null;
+                            oldPos = null;
+                            newPos = null;
+                            highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
+                            GameView.updateTiles(highlightedTiles, -1);
+                            AI.AImakeMove(boardmodel);
+                            GameView.updatePieces(boardmodel);
                         }
-                        chosenPiece = null;
-                        oldPos = null;
-                        newPos = null;
-                        highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
-                        GameView.updateTiles(highlightedTiles, -1);
+                        else{
+                            chosenPiece = null;
+                            oldPos = null;
+                            newPos = null;
+                            highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
+                            GameView.updateTiles(highlightedTiles, -1);
+                        }
                     }
                 }
             }

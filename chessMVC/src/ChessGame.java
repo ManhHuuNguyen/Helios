@@ -8,11 +8,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import view.GameView;
 
+
 public class ChessGame extends Application{
 
     public void start (Stage stage) throws Exception{
 
-        Board board = new Board("rnbqkbnr/pppppppp/8/pP6/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        Board board = new Board("3b4/8/8/KpP5/8/1n6/8/k7 w KQkq - 0 1");
         Scene scene = new Scene(GameView.boardscreen, 572, 572);
         GameController.addClickEvent(GameView.boardscreen, board);
         GameView.initMapPiece();
@@ -40,6 +41,25 @@ public class ChessGame extends Application{
         System.out.println("The speed is: " + result/((endTime-startTime)/1000000000) + " nodes per second");
         Helper.BitBoardtoBoardArray(board);
         System.out.println("Number of castling: " + Perft.testingSpecial);
-    }
 
+//        String move = "46 CK";
+//        long WKt = Board.makeTestMove(move, board.WK, 'K');
+//        long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+//        long WRt = Board.makeTestMove(move, board.WR, 'R');
+//        long WBt = Board.makeTestMove(move, board.WB, 'B');
+//        long WNt = Board.makeTestMove(move, board.WN, 'N');
+//        long WPt = Board.makeTestMove(move, board.WP, 'P');
+//        long BKt = Board.makeTestMove(move, board.BK, 'k');
+//        long BQt = Board.makeTestMove(move, board.BQ, 'q');
+//        long BRt = Board.makeTestMove(move, board.BR, 'r');
+//        long BBt = Board.makeTestMove(move, board.BB, 'b');
+//        long BNt = Board.makeTestMove(move, board.BN, 'n');
+//        long BPt = Board.makeTestMove(move, board.BP, 'p');
+//        boolean castleWKt = Board.makeCastleMove(move, board.castleWK, WRt, "KS");
+//        boolean castleWQt = Board.makeCastleMove(move, board.castleWQ, WRt, "QS");
+//        boolean castleBKt = Board.makeCastleMove(move, board.castleBK, BRt, "ks");
+//        boolean castleBQt = Board.makeCastleMove(move, board.castleBQ, BRt, "qs");
+//        Helper.BitBoardToBoardArray2(WKt, WQt, WRt, WBt, WNt, WPt, BKt, BQt, BRt, BBt, BNt, BPt);
+//        System.out.println(castleWKt + " " + castleWQt + " " + castleBKt + " " + castleBQt);
+    }
 }

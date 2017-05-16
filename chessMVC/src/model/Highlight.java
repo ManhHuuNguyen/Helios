@@ -24,12 +24,27 @@ public class Highlight {
                 long possibility = BPP & ~(BPP - 1);
                 while (possibility != 0) {
                     int newPos = Long.numberOfTrailingZeros(possibility);
-                    list.add(newPos);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "B";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     BPP &= ~possibility;
                     possibility = BPP & ~(BPP - 1);
                 }
-                return list;
-            } else if (chosenPiece == 'K') { // white rook
+            }
+            else if (chosenPiece == 'K') { // white rook
                 long KingSpan = 61814108848128L, WQside = 2017612633061982208L, WKside = 8070450532247928832L;
 
                 long KPP;
@@ -57,8 +72,8 @@ public class Highlight {
                 if (board.castleWQ) {
                     if ((WQside & dangerZone) == 0 && ((WQside ^ board.WK | (1L << 57)) & OCCUPIED) == 0) list.add(58);
                 }
-                return list;
-            } else if (chosenPiece == 'N') {
+            }
+            else if (chosenPiece == 'N') {
                 long KnightSpan = 11333835722063872L;
 
                 long NPP;
@@ -72,20 +87,50 @@ public class Highlight {
                 long possibility = NPP & ~(NPP - 1);
                 while (possibility != 0) {
                     int newPos = Long.numberOfTrailingZeros(possibility);
-                    list.add(newPos);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "N";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     NPP &= ~possibility;
                     possibility = NPP & ~(NPP - 1);
                 }
-                return list;
-            } else if (chosenPiece == 'P') {
+            }
+            else if (chosenPiece == 'P') {
                 long singlePieceBoard = 1L << k;
 
                 // eat right
                 long pawnMoves = ((singlePieceBoard & (~columns[7])) >> 7) & BLACK_PIECES;
                 long possibility = pawnMoves & ~(pawnMoves - 1);
                 while (possibility != 0) {
-                    int pos = Long.numberOfTrailingZeros(pawnMoves);
-                    list.add(pos);
+                    int newPos = Long.numberOfTrailingZeros(pawnMoves);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "P";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     pawnMoves &= (~possibility);
                     possibility = pawnMoves & ~(pawnMoves - 1);
                 }
@@ -94,8 +139,23 @@ public class Highlight {
                 pawnMoves = ((singlePieceBoard & (~columns[0])) >> 9) & BLACK_PIECES;
                 possibility = pawnMoves & ~(pawnMoves - 1);
                 while (possibility != 0) {
-                    int pos = Long.numberOfTrailingZeros(pawnMoves);
-                    list.add(pos);
+                    int newPos = Long.numberOfTrailingZeros(pawnMoves);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "P";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     pawnMoves &= (~possibility);
                     possibility = pawnMoves & (~(pawnMoves - 1));
                 }
@@ -104,8 +164,23 @@ public class Highlight {
                 pawnMoves = ((singlePieceBoard & (~rows[0])) >> 8) & EMPTY;
                 possibility = pawnMoves & ~(pawnMoves - 1);
                 while (possibility != 0) {
-                    int pos = Long.numberOfTrailingZeros(pawnMoves);
-                    list.add(pos);
+                    int newPos = Long.numberOfTrailingZeros(pawnMoves);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "P";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     pawnMoves &= (~possibility);
                     possibility = pawnMoves & (~(pawnMoves - 1));
                 }
@@ -114,8 +189,23 @@ public class Highlight {
                 pawnMoves = (singlePieceBoard >> 16) & EMPTY & (EMPTY >> 8) & rows[4];
                 possibility = pawnMoves & ~(pawnMoves - 1);
                 while (possibility != 0) {
-                    int pos = Long.numberOfTrailingZeros(pawnMoves);
-                    list.add(pos);
+                    int newPos = Long.numberOfTrailingZeros(pawnMoves);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "P";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     pawnMoves &= (~possibility);
                     possibility = pawnMoves & (~(pawnMoves - 1));
                 }
@@ -127,34 +217,98 @@ public class Highlight {
                         int enpassantColumn = board.history.charAt(lastIndex) - '0';
                         // en passant right
                         possibility = ((((singlePieceBoard & (~columns[7])) << 1) & board.BP & rows[3] & columns[enpassantColumn]) >> 8) & EMPTY;
-                        if (possibility != 0) list.add(2 * 8 + enpassantColumn);
+                        if (possibility != 0){
+                            String move = (enpassantColumn-1) + "" + enpassantColumn + " EP";
+                            long WKt = Board.makeTestMove(move, board.WK, 'K');
+                            long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                            long WRt = Board.makeTestMove(move, board.WR, 'R');
+                            long WBt = Board.makeTestMove(move, board.WB, 'B');
+                            long WNt = Board.makeTestMove(move, board.WN, 'N');
+                            long WPt = Board.makeTestMove(move, board.WP, 'P');
+                            long BKt = Board.makeTestMove(move, board.BK, 'k');
+                            long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                            long BRt = Board.makeTestMove(move, board.BR, 'r');
+                            long BBt = Board.makeTestMove(move, board.BB, 'b');
+                            long BNt = Board.makeTestMove(move, board.BN, 'n');
+                            long BPt = Board.makeTestMove(move, board.BP, 'p');
+                            if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                                list.add(2 * 8 + enpassantColumn);
+                            }
+                        }
                         // en passant left
                         possibility = ((((singlePieceBoard & (~columns[0])) >> 1) & board.BP & rows[3] & columns[enpassantColumn]) >> 8) & EMPTY;
-                        if (possibility != 0) list.add(2 * 8 + enpassantColumn);
+                        if (possibility != 0){
+                            String move = (enpassantColumn+1) + "" + enpassantColumn + " EP";
+                            long WKt = Board.makeTestMove(move, board.WK, 'K');
+                            long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                            long WRt = Board.makeTestMove(move, board.WR, 'R');
+                            long WBt = Board.makeTestMove(move, board.WB, 'B');
+                            long WNt = Board.makeTestMove(move, board.WN, 'N');
+                            long WPt = Board.makeTestMove(move, board.WP, 'P');
+                            long BKt = Board.makeTestMove(move, board.BK, 'k');
+                            long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                            long BRt = Board.makeTestMove(move, board.BR, 'r');
+                            long BBt = Board.makeTestMove(move, board.BB, 'b');
+                            long BNt = Board.makeTestMove(move, board.BN, 'n');
+                            long BPt = Board.makeTestMove(move, board.BP, 'p');
+                            if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                                list.add(2 * 8 + enpassantColumn);
+                            }
+                        }
                     }
                 }
-                return list;
-            } else if (chosenPiece == 'Q') {
+            }
+            else if (chosenPiece == 'Q') {
                 long QPP = (Moves.DiagonalMoves(k, OCCUPIED) & NOT_WHITE_PIECES) ^ (Moves.CrossMoves(k, OCCUPIED) & NOT_WHITE_PIECES);
                 long possibility = QPP & ~(QPP - 1);
                 while (possibility != 0) {
                     int newPos = Long.numberOfTrailingZeros(possibility);
-                    list.add(newPos);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "Q";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     QPP &= ~possibility;
                     possibility = QPP & ~(QPP - 1);
                 }
-                return list;
-            } else if (chosenPiece == 'R') {
+            }
+            else if (chosenPiece == 'R') {
                 long RPP = Moves.CrossMoves(k, OCCUPIED) & NOT_WHITE_PIECES;
                 long possibility = RPP & ~(RPP - 1);
                 while (possibility != 0) {
                     int newPos = Long.numberOfTrailingZeros(possibility);
-                    list.add(newPos);
+                    String move = (oldPos[1]) +""+ (oldPos[0]) +""+ (newPos/8) +""+ (newPos%8) + "R";
+                    long WKt = Board.makeTestMove(move, board.WK, 'K');
+                    long WQt = Board.makeTestMove(move, board.WQ, 'Q');
+                    long WRt = Board.makeTestMove(move, board.WR, 'R');
+                    long WBt = Board.makeTestMove(move, board.WB, 'B');
+                    long WNt = Board.makeTestMove(move, board.WN, 'N');
+                    long WPt = Board.makeTestMove(move, board.WP, 'P');
+                    long BKt = Board.makeTestMove(move, board.BK, 'k');
+                    long BQt = Board.makeTestMove(move, board.BQ, 'q');
+                    long BRt = Board.makeTestMove(move, board.BR, 'r');
+                    long BBt = Board.makeTestMove(move, board.BB, 'b');
+                    long BNt = Board.makeTestMove(move, board.BN, 'n');
+                    long BPt = Board.makeTestMove(move, board.BP, 'p');
+                    if ((WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0){
+                        list.add(newPos);
+                    }
                     RPP &= ~possibility;
                     possibility = RPP & ~(RPP - 1);
                 }
-                return list;
             }
+            return list;
         }
         return list;
     }
