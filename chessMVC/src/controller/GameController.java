@@ -46,8 +46,7 @@ public class GameController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 int[] mousePos = new int[]{(int)(mouseEvent.getX()-30)/64, (int)(mouseEvent.getY()-30)/64};
-//                if (boardmodel.WhiteTurn && mousePos[0]<=7 && mousePos[1]<=7){
-                if (mousePos[0]<=7 && mousePos[1]<=7){
+                if (boardmodel.WhiteTurn && mousePos[0]<=7 && mousePos[1]<=7){
                     Character square = boardmodel.boardArray[mousePos[1]][mousePos[0]].charAt(0);
                     if (Character.isUpperCase(square)){
                         chosenPiece = square;

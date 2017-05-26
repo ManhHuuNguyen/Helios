@@ -123,7 +123,7 @@ public class Board {
     }
 
     public static long makeTestMove(String moveString, long oldBitBoard, char type){
-        // could it be slow bc I test too much? Because I could be relied to match exactly in perft
+        // could it be slow bc I test too much? Because I could be relied to match exactly in perft...
         if (moveString.charAt(3)=='P'){
             if (type == moveString.charAt(4)){
                 return (type=='P')?oldBitBoard^(1L<<(8+(moveString.charAt(0)-'0'))):oldBitBoard^(1L<<(48+(moveString.charAt(0)-'0')));
@@ -131,10 +131,11 @@ public class Board {
             else if (type == moveString.charAt(2)){
                 return (moveString.charAt(4)=='P')?oldBitBoard|(1L<<(moveString.charAt(1)-'0')):oldBitBoard|(1L<<(56+(moveString.charAt(1)-'0')));
             }
-            else if ((oldBitBoard & (1L<<(moveString.charAt(1)-'0')))!=0 && !Character.isUpperCase(type)){
+            // wrong here somehow... it deletes 2 pieces of both line 0 and 7 of similar row to the promotion
+            else if ((oldBitBoard & (1L<<(moveString.charAt(1)-'0')))!=0 && !Character.isUpperCase(type) && moveString.charAt(4)=='P'){//! before character
                 return oldBitBoard ^ (1L<<(moveString.charAt(1)-'0'));
             }
-            else if ((oldBitBoard & (1L<<(56+(moveString.charAt(1)-'0'))))!=0 && Character.isUpperCase(type)){
+            else if ((oldBitBoard & (1L<<(56+(moveString.charAt(1)-'0'))))!=0 && Character.isUpperCase(type) && moveString.charAt(4)=='p'){//no ! before character
                 return oldBitBoard ^ (1L<<(56+(moveString.charAt(1)-'0')));
             }
             else return oldBitBoard;
@@ -189,7 +190,6 @@ public class Board {
         int oldRow, oldColumn, newRow, newColumn;
         history += moveString;
         WhiteTurn = !WhiteTurn;
-        System.out.println(moveString);
         if (moveString.charAt(3) == 'P'){ // promotion
             if (moveString.charAt(4)=='P'){ // white pawn
                 oldRow = 1;
