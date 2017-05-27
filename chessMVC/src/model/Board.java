@@ -131,11 +131,10 @@ public class Board {
             else if (type == moveString.charAt(2)){
                 return (moveString.charAt(4)=='P')?oldBitBoard|(1L<<(moveString.charAt(1)-'0')):oldBitBoard|(1L<<(56+(moveString.charAt(1)-'0')));
             }
-            // wrong here somehow... it deletes 2 pieces of both line 0 and 7 of similar row to the promotion
-            else if ((oldBitBoard & (1L<<(moveString.charAt(1)-'0')))!=0 && !Character.isUpperCase(type) && moveString.charAt(4)=='P'){//! before character
+            else if ((oldBitBoard & (1L<<(moveString.charAt(1)-'0')))!=0 && !Character.isUpperCase(type) && moveString.charAt(4)=='P'){
                 return oldBitBoard ^ (1L<<(moveString.charAt(1)-'0'));
             }
-            else if ((oldBitBoard & (1L<<(56+(moveString.charAt(1)-'0'))))!=0 && Character.isUpperCase(type) && moveString.charAt(4)=='p'){//no ! before character
+            else if ((oldBitBoard & (1L<<(56+(moveString.charAt(1)-'0'))))!=0 && Character.isUpperCase(type) && moveString.charAt(4)=='p'){
                 return oldBitBoard ^ (1L<<(56+(moveString.charAt(1)-'0')));
             }
             else return oldBitBoard;
@@ -249,12 +248,12 @@ public class Board {
                 if (oldColumn > newColumn){
                     BR = (BR^1L) | (1L<<3);
                     boardArray[0][0] = " ";
-                    boardArray[0][3] = "R";
+                    boardArray[0][3] = "r";
                 }
                 else{
                     BR = (BR^(1L<<7)) | (1L<<5);
                     boardArray[0][7] = " ";
-                    boardArray[0][5] = "R";
+                    boardArray[0][5] = "r";
                 }
             }
         }

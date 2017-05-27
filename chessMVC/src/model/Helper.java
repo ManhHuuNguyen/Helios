@@ -2,6 +2,7 @@ package model;
 
 import java.util.Arrays;
 
+/*for testing purposes*/
 public class Helper {
 
     public static void BitBoardtoBoardArray(Board boardmodel){
@@ -59,6 +60,24 @@ public class Helper {
             if (((BB >> i) & 1) == 1) board[i / 8][i % 8] = "b";
             if (((BN >> i) & 1) == 1) board[i / 8][i % 8] = "n";
             if (((BP >> i) & 1) == 1) board[i / 8][i % 8] = "p";
+        }
+        for (String[] row : board) System.out.println(Arrays.toString(row));
+        System.out.println();
+    }
+
+    public static void BitBoardToBoardArray3(long bitboard){
+        String board[][] = {
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "}
+        };
+        for (int i=0;i<64;i++){
+            if(((bitboard>>i)&1)==1) board[i/8][i%8]="X";
         }
         for (String[] row : board) System.out.println(Arrays.toString(row));
         System.out.println();

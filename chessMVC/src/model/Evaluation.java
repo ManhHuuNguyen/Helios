@@ -2,7 +2,7 @@ package model;
 
 public class Evaluation {
 
-    public static int mateScore = 10000000;
+    public static int mateScore = 100000000;
 
     private static int[] WPtable = {
             0,  0,  0,  0,  0,  0,  0,  0,
@@ -146,9 +146,10 @@ public class Evaluation {
             -50,-40,-30,-20,-20,-30,-40,-50,
     };
 
-    public static int evaluate(long WK, long WQ, long WR, long WB, long WN, long WP,
+    public static double evaluate(long WK, long WQ, long WR, long WB, long WN, long WP,
                                long BK, long BQ, long BR, long BB, long BN, long BP){
 
+        // find another way to check mate score
         int K = Long.bitCount(WK);
         int Q = Long.bitCount(WQ);
         int R = Long.bitCount(WR);

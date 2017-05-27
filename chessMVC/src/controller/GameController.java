@@ -17,17 +17,6 @@ public class GameController {
     private static int[] oldPos;
     private static int[] newPos;
 
-    public static void takeTurn(Board board){
-        if (board.WhiteTurn){
-
-        }
-        else {
-
-        }
-    }
-
-    public static void isCheckMate(){}
-
     public static ArrayList<Integer> isChecked(Board board){
         ArrayList<Integer> list = new ArrayList<>();
         if ((board.WK & Moves.WKdangerZone(board.WQ, board.WR, board.WB, board.WN, board.WP,

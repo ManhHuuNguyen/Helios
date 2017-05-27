@@ -69,6 +69,7 @@ public class Perft {
                 if ((WhiteTurn && (WKt&Moves.WKdangerZone(WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt))==0) ||
                         ((!WhiteTurn && (BKt&Moves.BKdangerZone(WKt,WQt,WRt,WBt,WNt,WPt,BQt,BRt,BBt,BNt,BPt))==0))) {
                     if (depth + 1 == maxDepth) perftCounter += 1;
+
                     if (move.charAt(3)=='C' && depth+1==maxDepth) testingSpecial += 1;
                     perft(WKt,WQt,WRt,WBt,WNt,WPt,BKt,BQt,BRt,BBt,BNt,BPt,castleWKt,castleWQt,castleBKt,castleBQt,history+move,!WhiteTurn,depth+1,maxDepth);
                 }
