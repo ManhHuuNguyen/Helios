@@ -1,6 +1,8 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.AI;
@@ -16,6 +18,7 @@ public class GameController {
     private static Character chosenPiece;
     private static int[] oldPos;
     private static int[] newPos;
+    private static boolean hasMoved=false;
 
     public static ArrayList<Integer> isChecked(Board board){
         ArrayList<Integer> list = new ArrayList<>();
@@ -28,6 +31,21 @@ public class GameController {
             list.add(Long.numberOfTrailingZeros(board.BK));
         }
         return list;
+    }
+
+    public static void addSecondaryClickEvent(Button retractButton, Button makeMoveButton, Board board){
+        makeMoveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (hasMoved) {
+                    AI.AImakeMove(board);
+                    GameView.updatePieces(board);
+                    ArrayList<Integer> checkedKings = isChecked(board);
+                    GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
+                    hasMoved = false;
+                }
+            }
+        });
     }
 
     public static void addClickEvent(Pane boardscreen, Board boardmodel){
@@ -58,11 +76,7 @@ public class GameController {
                             highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
                             ArrayList<Integer> checkedKings = isChecked(boardmodel);
                             GameView.updateTiles(highlightedTiles, -1, checkedKings);
-                            // AI makes move
-                            AI.AImakeMove(boardmodel);
-                            GameView.updatePieces(boardmodel);
-                            checkedKings = isChecked(boardmodel);
-                            GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
+                            hasMoved = true;
                         }
                         else{
                             chosenPiece = null;

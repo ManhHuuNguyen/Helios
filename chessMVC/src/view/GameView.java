@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,8 +16,11 @@ public class GameView {
 
     public static HashMap<String, Image> mapPiece = new HashMap<>();
     public static Pane boardscreen = new Pane();
+    public static Pane secondaryscreen = new Pane();
     private static ArrayList<ImageView> pieces = new ArrayList<>();
     public static Tile[] tileList = new Tile[64];
+    public static Button makeMoveButton = new Button("MAKE MOVE");
+    public static Button retractMoveButton = new Button("RETRACT MOVE");
 
     public static void initMapPiece(){
         mapPiece.put("K", new Image("file:images/WhiteKing.png"));
@@ -43,6 +47,13 @@ public class GameView {
             boardscreen.getChildren().add(label);
         }
     }
+
+    public static void initSecondaryScene(){
+        retractMoveButton.setTranslateX(125);
+        secondaryscreen.getChildren().add(retractMoveButton);
+        secondaryscreen.getChildren().add(makeMoveButton);
+    }
+
     public static void initBoard(Board boardModel){
 
         boardscreen.setStyle("-fx-background-color: #199928");

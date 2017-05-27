@@ -21,6 +21,16 @@ public class ChessGame extends Application{
         stage.getIcons().add(new Image("file:images/icon.png"));
         stage.setScene(scene);
         stage.show();
+        // secondary stage
+        Stage secondaryStage = new Stage();
+        secondaryStage.setTitle("Helios");
+        secondaryStage.getIcons().add(new Image("file:images/icon.png"));
+        GameView.initSecondaryScene();
+        GameController.addSecondaryClickEvent(GameView.retractMoveButton, GameView.makeMoveButton, board);
+        Scene secondaryScene = new Scene(GameView.secondaryscreen, 250, 572);
+        secondaryStage.setScene(secondaryScene);
+        secondaryStage.show();
+
     }
 
     public static void main(String[] args){
