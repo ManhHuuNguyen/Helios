@@ -7,6 +7,9 @@ public class Board {
     public long WK = 0L, WQ = 0L, WR = 0L, WB = 0L, WN = 0L, WP = 0L;
     public long BK = 0L, BQ = 0L, BR = 0L, BB = 0L, BN = 0L, BP = 0L;
     public boolean castleWK = true, castleBK = true, castleWQ = true, castleBQ = true;
+    public long oWK = 0L, oWQ = 0L, oWR = 0L, oWB = 0L, oWN = 0L, oWP = 0L;
+    public long oBK = 0L, oBQ = 0L, oBR = 0L, oBB = 0L, oBN = 0L, oBP = 0L;
+    public boolean ocastleWK = true, ocastleBK = true, ocastleWQ = true, ocastleBQ = true;
     public boolean WhiteTurn = true;
     public String boardArray[][] = {
         {" ", " ", " ", " ", " ", " ", " ", " "},
@@ -18,7 +21,18 @@ public class Board {
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {" ", " ", " ", " ", " ", " ", " ", " "}
     };
+    public String oBoardArray[][] = {
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " ", " "}
+    };
     public String history = "";
+    public String oHistory = "";
 
     public Board(String fenString){
         String[] items = fenString.split("[/\\s]");
@@ -431,6 +445,49 @@ public class Board {
                 BP ^= newBoard;
                 break;
         }
+    }
+
+    public void copyOldBoard(){
+        oWK = WK;
+        oWQ = WQ;
+        oWR = WR;
+        oWB = WB;
+        oWN = WN;
+        oWP = WP;
+        oBK = BK;
+        oBQ = BQ;
+        oBR = BR;
+        oBB = BB;
+        oBN = BN;
+        oBP = BP;
+        ocastleWK = castleWK;
+        ocastleWQ = castleWQ;
+        ocastleBK = castleBK;
+        ocastleBQ = castleBQ;
+        oBoardArray = Helper.clone2DArray(boardArray);
+        oHistory = history;
+    }
+
+    public void retractMove(){
+        WhiteTurn = !WhiteTurn;
+        WK = oWK;
+        WQ = oWQ;
+        WR = oWR;
+        WB = oWB;
+        WN = oWN;
+        WP = oWP;
+        BK = oBK;
+        BQ = oBQ;
+        BR = oBR;
+        BB = oBB;
+        BN = oBN;
+        BP = oBP;
+        castleWK = ocastleWK;
+        castleWQ = ocastleWQ;
+        castleBK = ocastleBK;
+        castleBQ = ocastleBQ;
+        boardArray = Helper.clone2DArray(oBoardArray);
+        history = oHistory;
     }
 }
 

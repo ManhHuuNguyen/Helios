@@ -110,8 +110,9 @@ public class PrincipalVariation {
                               boolean WhiteTurn, String history, int depth, double alpha, double beta){
         int turn = (WhiteTurn)?-1:1;
         // checkmates
-        if (WhiteTurn && (BK&Moves.BKdangerZone(WK, WQ, WR, WB, WN, WP, BQ, BR, BB, BN, BP))!=0)
+        if (WhiteTurn && (BK&Moves.BKdangerZone(WK, WQ, WR, WB, WN, WP, BQ, BR, BB, BN, BP))!=0) {
             return Evaluation.mateScore;
+        }
         if (!WhiteTurn && (WK& Moves.WKdangerZone(WQ, WR, WB, WN, WP, BK, BQ, BR, BB, BN, BP))!=0)
             return Evaluation.mateScore;
         if (depth==maxDepth) return turn*Evaluation.evaluate(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP);

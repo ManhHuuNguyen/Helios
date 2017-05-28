@@ -82,4 +82,14 @@ public class Helper {
         for (String[] row : board) System.out.println(Arrays.toString(row));
         System.out.println();
     }
+
+    public static String[][] clone2DArray(String[][] array){
+        String[][] newArray = new String[8][8];
+        for (int i=0;i<8;i++){
+            for (int k=0;k<8;k++){
+                newArray[i][k] = array[i][k];
+            }
+        }
+        return newArray;
+    }
 }

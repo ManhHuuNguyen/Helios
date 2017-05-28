@@ -38,11 +38,23 @@ public class GameController {
             @Override
             public void handle(ActionEvent event) {
                 if (hasMoved) {
+                    hasMoved = false;
                     AI.AImakeMove(board);
                     GameView.updatePieces(board);
                     ArrayList<Integer> checkedKings = isChecked(board);
                     GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
+                }
+            }
+        });
+        retractButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (hasMoved){
                     hasMoved = false;
+                    board.retractMove();
+                    GameView.updatePieces(board);
+                    ArrayList<Integer> checkedKings = isChecked(board);
+                    GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
                 }
             }
         });
@@ -67,6 +79,7 @@ public class GameController {
                         boolean empty = square==' ';
                         ArrayList<Integer> highlightedTiles = Highlight.generateMoves(chosenPiece, oldPos, boardmodel);
                         if (highlightedTiles.contains(newPos[1]*8+newPos[0])){
+                            boardmodel.copyOldBoard();
                             String moveString = generateMoveString(chosenPiece, oldPos, newPos, empty);
                             boardmodel.movePiece(moveString);
                             GameView.updatePieces(boardmodel);
