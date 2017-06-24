@@ -177,11 +177,11 @@ public class Moves {
         }
         // castle white king
         if (castleWK){
-            if ((WKside&dangerZone)==0 && ((WKside^WK)&OCCUPIED)==0) moveString += "46 CK";
+            if ((WKside&dangerZone)==0 && ((WKside^WK)&OCCUPIED)==0 && (WR&(1L<<63))!=0) moveString += "46 CK";
         }
         // castle white queen
         if (castleWQ){
-            if ((WQside&dangerZone)==0 && ((WQside^WK|(1L<<57))&OCCUPIED)==0) moveString += "42 CK";
+            if ((WQside&dangerZone)==0 && ((WQside^WK|(1L<<57))&OCCUPIED)==0 && (WR&(1L<<56))!=0) moveString += "42 CK";
         }
         return moveString;
     }
@@ -368,11 +368,11 @@ public class Moves {
         }
         // castle black king
         if (castleBK){
-            if ((BKside&dangerZone)==0 && ((BKside^BK)&OCCUPIED)==0) moveString += "46 Ck";
+            if ((BKside&dangerZone)==0 && ((BKside^BK)&OCCUPIED)==0 && (BR&(1L<<7))!=0) moveString += "46 Ck";
         }
         // castle black queen
         if (castleBQ){
-            if ((BQside&dangerZone)==0 && ((BQside^BK|(1L<<1))&OCCUPIED)==0) moveString += "42 Ck";
+            if ((BQside&dangerZone)==0 && ((BQside^BK|(1L<<1))&OCCUPIED)==0 && (BR&1L)!=0) moveString += "42 Ck";
         }
         return moveString;
     }
