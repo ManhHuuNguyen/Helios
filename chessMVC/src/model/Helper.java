@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /*for testing purposes*/
 public class Helper {
@@ -91,5 +92,31 @@ public class Helper {
             }
         }
         return newArray;
+    }
+
+    public static String convertMove(String move){
+        HashMap<String, String> map = new HashMap<String, String>(){{
+            put("0", "a");
+            put("1", "b");
+            put("2", "c");
+            put("3", "d");
+            put("4", "e");
+            put("5", "f");
+            put("6", "g");
+            put("7", "h");
+        }};
+        if (move.charAt(3)=='P'){
+            if (move.charAt(4)=='P') return map.get(Character.toString(move.charAt(1))) + "7" + map.get(Character.toString(move.charAt(3))) + "8" + "Q";
+            else return map.get(Character.toString(move.charAt(1))) + "2" + map.get(Character.toString(move.charAt(3))) + "1" + "q";
+        }
+        else if (move.charAt(3)=='E'){
+            if (move.charAt(4)=='P') return map.get(Character.toString(move.charAt(0))) + "5" + map.get(Character.toString(move.charAt(1))) + "6";
+            else return map.get(Character.toString(move.charAt(0))) + "4" + map.get(Character.toString(move.charAt(1))) + "3";
+        }
+        else if (move.charAt(3)=='C'){
+            if (move.substring(0, 2).equals("46")) return "0-0";
+            else return "0-0-0";
+        }
+        return map.get(Character.toString(move.charAt(1))) + (8-(move.charAt(0)-'0')) + map.get(Character.toString(move.charAt(3))) + (8-(move.charAt(2)-'0'));
     }
 }

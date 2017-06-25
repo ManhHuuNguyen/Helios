@@ -5,12 +5,12 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import model.AI;
-import model.Board;
-import model.Highlight;
-import model.Moves;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+import model.*;
 import view.GameView;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GameController {
@@ -19,6 +19,7 @@ public class GameController {
     private static int[] oldPos;
     private static int[] newPos;
     private static boolean hasMoved=false;
+    private static String currentMove;
 
     public static ArrayList<Integer> isChecked(Board board){
         ArrayList<Integer> list = new ArrayList<>();
@@ -38,11 +39,13 @@ public class GameController {
             @Override
             public void handle(ActionEvent event) {
                 if (hasMoved) {
+                    GameView.updateMove(Helper.convertMove(currentMove), Color.GREEN);
                     hasMoved = false;
-                    AI.AImakeMove(board);
+                    currentMove = AI.AImakeMove(board);
                     GameView.updatePieces(board);
                     ArrayList<Integer> checkedKings = isChecked(board);
                     GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
+                    GameView.updateMove(Helper.convertMove(currentMove), Color.RED);
                 }
             }
         });
@@ -81,6 +84,7 @@ public class GameController {
                         if (highlightedTiles.contains(newPos[1]*8+newPos[0])){
                             boardmodel.copyOldBoard();
                             String moveString = generateMoveString(chosenPiece, oldPos, newPos, empty);
+                            currentMove = moveString;
                             boardmodel.movePiece(moveString);
                             GameView.updatePieces(boardmodel);
                             chosenPiece = null;

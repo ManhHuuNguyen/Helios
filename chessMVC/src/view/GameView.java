@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import model.Board;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class GameView {
     public static Tile[] tileList = new Tile[64];
     public static Button makeMoveButton = new Button("MAKE MOVE");
     public static Button retractMoveButton = new Button("RETRACT MOVE");
+    public static TextFlow textarea = new TextFlow();
 
     public static void initMapPiece(){
         mapPiece.put("K", new Image("file:images/WhiteKing.png"));
@@ -38,7 +41,7 @@ public class GameView {
     }
 
     private static void addLabels(String[] strings, int[][] position){
-        for (int i=0; i<strings.length; i++) {
+        for (int i=0; i<strings.length; i++){
             Label label = new Label(strings[i]);
             label.setTextFill(Color.WHITE);
             label.setTranslateX(position[i][0]);
@@ -52,6 +55,10 @@ public class GameView {
         retractMoveButton.setTranslateX(125);
         secondaryscreen.getChildren().add(retractMoveButton);
         secondaryscreen.getChildren().add(makeMoveButton);
+        textarea.setTranslateY(50);
+        textarea.setTranslateX(10);
+        textarea.setLineSpacing(5.0);
+        secondaryscreen.getChildren().add(textarea);
     }
 
     public static void initBoard(Board boardModel){
@@ -91,5 +98,12 @@ public class GameView {
                 }
             }
         }
+    }
+
+    public static void updateMove(String moveString, Color color){
+        Text move = new Text(moveString + "\n");
+        move.setFill(color);
+        move.setFont(new Font(15));
+        textarea.getChildren().add(move);
     }
 }

@@ -109,18 +109,28 @@ public class PrincipalVariation {
                               boolean castleWK, boolean castleWQ, boolean castleBK, boolean castleBQ,
                               boolean WhiteTurn, String history, int depth, double alpha, double beta){
         int turn = (WhiteTurn)?-1:1;
-        // checkmates
+        String moveString = (WhiteTurn)?Moves.WhitePossibleMoves(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,castleWK,castleWQ,history):
+                Moves.BlackPossibleMoves(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,castleBK,castleBQ,history);
+        int firstLegalMove = getLegalMove(moveString,WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,WhiteTurn);
+
+        // check end note
+        if (firstLegalMove == -1){
+            if (WhiteTurn && (WK & Moves.WKdangerZone(WQ, WR, WB, WN, WP, BK, BQ, BR, BB, BN, BP)) != 0){
+                return -(7 - depth) * Evaluation.mateScore;
+            }
+            else if (!WhiteTurn && (BK & Moves.BKdangerZone(WK, WQ, WR, WB, WN, WP, BQ, BR, BB, BN, BP)) != 0) {
+                return (7 - depth) * Evaluation.mateScore;
+            }
+            else return 0;
+        }
+
         if (WhiteTurn && (BK&Moves.BKdangerZone(WK, WQ, WR, WB, WN, WP, BQ, BR, BB, BN, BP))!=0)
-            return Evaluation.mateScore;
+            return (7 - depth) * Evaluation.mateScore;
         if (!WhiteTurn && (WK& Moves.WKdangerZone(WQ, WR, WB, WN, WP, BK, BQ, BR, BB, BN, BP))!=0)
-            return Evaluation.mateScore;
+            return -(7 - depth) * Evaluation.mateScore;
         if (depth==maxDepth) return turn*Evaluation.evaluate(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP);
 
-        String moveString = (WhiteTurn)?Moves.WhitePossibleMoves(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,castleWK,castleWQ,history):
-                                        Moves.BlackPossibleMoves(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,castleBK,castleBQ,history);
-        int firstLegalMove = getLegalMove(moveString,WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,WhiteTurn);
-        //draw
-        if (firstLegalMove == -1) return 0;
+
         for (int i=firstLegalMove;i<moveString.length();i+=5){
             String move = moveString.substring(i,i+5);
             double score;
