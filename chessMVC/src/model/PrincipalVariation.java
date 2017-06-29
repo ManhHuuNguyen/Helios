@@ -9,10 +9,10 @@ public class PrincipalVariation {
         return moveString;
     }
 
-    private static int getLegalMove(String sortedMoveString,
-                                    long WK, long WQ, long WR, long WB, long WN, long WP,
-                                    long BK, long BQ, long BR, long BB, long BN, long BP,
-                                    boolean WhiteTurn){
+    public static int getLegalMove(String sortedMoveString,
+                                   long WK, long WQ, long WR, long WB, long WN, long WP,
+                                   long BK, long BQ, long BR, long BB, long BN, long BP,
+                                   boolean WhiteTurn){
         for (int i=0; i< sortedMoveString.length(); i+=5){
             String move = sortedMoveString.substring(i, i+5);
             long WKt = Board.makeTestMove(move, WK, 'K');

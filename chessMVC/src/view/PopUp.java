@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -70,10 +72,25 @@ public class PopUp {
         return new ImageView(image);
     }
 
-    public static void createResultPopUp(){
+    public static void createResultPopUp(String result){
         Stage PopUpWindow = new Stage();
         PopUpWindow.initModality(Modality.APPLICATION_MODAL);
         PopUpWindow.setTitle("RESULT");
-
+        TextFlow layout = new TextFlow();
+        Text resultTxt;
+        switch(result){
+            case "W":
+                resultTxt = new Text("White wins!");
+                break;
+            case "B":
+                resultTxt = new Text("Black wins!");
+                break;
+            default:
+                resultTxt = new Text("Draw...");
+        }
+        layout.getChildren().add(resultTxt);
+        Scene scene = new Scene(layout, 326, 74);
+        PopUpWindow.setScene(scene);
+        PopUpWindow.showAndWait();
     }
 }
