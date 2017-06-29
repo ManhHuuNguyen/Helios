@@ -13,7 +13,7 @@ public class ChessGame extends Application{
 
     public void start (Stage stage) throws Exception{
         Board board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-        Scene scene = new Scene(GameView.boardscreen, 572, 572);
+        Scene scene = new Scene(GameView.boardscreen, 572, 620);
         GameController.addClickEvent(GameView.boardscreen, board);
         GameView.initMapPiece();
         GameView.initBoard(board);
@@ -21,16 +21,7 @@ public class ChessGame extends Application{
         stage.getIcons().add(new Image("file:images/icon.png"));
         stage.setScene(scene);
         stage.show();
-        // secondary stage
-        Stage secondaryStage = new Stage();
-        secondaryStage.setTitle("Helios");
-        secondaryStage.getIcons().add(new Image("file:images/icon.png"));
-        GameView.initSecondaryScene();
         GameController.addSecondaryClickEvent(GameView.retractMoveButton, GameView.makeMoveButton, board);
-        Scene secondaryScene = new Scene(GameView.secondaryscreen, 250, 572);
-        secondaryStage.setScene(secondaryScene);
-        secondaryStage.show();
-
     }
 
     public static void main(String[] args){

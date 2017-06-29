@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -12,6 +11,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static view.GameView.createButtonImg;
 
 
 public class PopUp {
@@ -67,10 +67,6 @@ public class PopUp {
         PopUpWindow.showAndWait();
     }
 
-    public static ImageView createButtonImg(String imageLink){
-        Image image=new Image(imageLink);
-        return new ImageView(image);
-    }
 
     public static void createResultPopUp(String result){
         Stage PopUpWindow = new Stage();

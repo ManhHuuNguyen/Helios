@@ -19,6 +19,7 @@ public class Tile extends Rectangle {
         color1 = (row+column)%2==0? Color.rgb(237, 237, 23): Color.rgb(26, 179, 26);
         color2 = (row+column)%2==0? Color.rgb(239, 182, 11): Color.rgb(23, 238, 23);
         setFill(color1);
+        setStroke(Color.BLACK);
     }
 
     public void changeColor(int i){

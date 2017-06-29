@@ -1,11 +1,13 @@
 package view;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -18,11 +20,10 @@ public class GameView {
 
     public static HashMap<String, Image> mapPiece = new HashMap<>();
     public static Pane boardscreen = new Pane();
-    public static Pane secondaryscreen = new Pane();
     private static ArrayList<ImageView> pieces = new ArrayList<>();
     public static Tile[] tileList = new Tile[64];
-    public static Button makeMoveButton = new Button("MAKE MOVE");
-    public static Button retractMoveButton = new Button("RETRACT MOVE");
+    public static Button makeMoveButton = new Button("", createButtonImg("file:images/forward_btn.png"));
+    public static Button retractMoveButton = new Button("", createButtonImg("file:images/backward_btn.png"));
     public static TextFlow textarea = new TextFlow();
 
     public static void initMapPiece(){
@@ -50,15 +51,23 @@ public class GameView {
             boardscreen.getChildren().add(label);
         }
     }
+    private static void addLines(){
+        Line lineDown = new Line();
+        lineDown.setStartX(0);
+        lineDown.setStartY(574);
+        lineDown.setEndX(572);
+        lineDown.setEndY(574);
+        boardscreen.getChildren().add(lineDown);
+    }
 
-    public static void initSecondaryScene(){
-        retractMoveButton.setTranslateX(125);
-        secondaryscreen.getChildren().add(retractMoveButton);
-        secondaryscreen.getChildren().add(makeMoveButton);
-        textarea.setTranslateY(50);
-        textarea.setTranslateX(10);
-        textarea.setLineSpacing(5.0);
-        secondaryscreen.getChildren().add(textarea);
+    public static void addButtons(){
+        retractMoveButton.setTranslateX(30);
+        retractMoveButton.setTranslateY(582);
+        makeMoveButton.setTranslateX(65);
+        makeMoveButton.setTranslateY(582);
+        retractMoveButton.setPadding(Insets.EMPTY);
+        makeMoveButton.setPadding(Insets.EMPTY);
+        boardscreen.getChildren().addAll(retractMoveButton, makeMoveButton);
     }
 
     public static void initBoard(Board boardModel){
@@ -75,6 +84,8 @@ public class GameView {
                         {376,3},{376,546},{440,3},{440,546},{504,3},{504,546},{8,48},{552,48},{8,112}, {552,112},
                         {8,176},{552,176},{8,240},{552,240},{8,304},{552,304},{8,372},{552,372},{8,436},{552,436},
                         {8,500},{552,500}});
+        addLines();
+        addButtons();
         updatePieces(boardModel);
     }
 
@@ -105,5 +116,10 @@ public class GameView {
         move.setFill(color);
         move.setFont(new Font(15));
         textarea.getChildren().add(move);
+    }
+
+    public static ImageView createButtonImg(String imageLink){
+        Image image=new Image(imageLink);
+        return new ImageView(image);
     }
 }

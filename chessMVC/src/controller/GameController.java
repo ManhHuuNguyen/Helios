@@ -1,19 +1,14 @@
 package controller;
 
-import javafx.beans.binding.When;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import model.*;
 import view.GameView;
 import view.PopUp;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class GameController {
