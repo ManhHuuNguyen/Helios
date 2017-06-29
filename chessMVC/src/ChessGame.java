@@ -43,7 +43,7 @@ public class ChessGame extends Application{
         int result = Perft.perftRoot(board.WK, board.WQ, board.WR, board.WB, board.WN, board.WP,
         board.BK, board.BQ, board.BR, board.BB, board.BN, board.BP,
         board.castleWK, board.castleWQ, board.castleBK, board.castleBQ,
-        board.WhiteTurn, board.history, 0, 5);
+        board.WhiteTurn, board.history, 0, 4);
         long endTime = System.nanoTime();
         System.out.println("There are: " + result + " nodes");
         System.out.println("It takes " + ((endTime-startTime)/1000000000) + " seconds");

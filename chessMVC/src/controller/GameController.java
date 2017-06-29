@@ -4,11 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import model.*;
 import view.GameView;
+import view.PopUp;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -111,7 +113,10 @@ public class GameController {
 
     private static String generateMoveString(Character piece, int[] oldPos, int[] newPos, boolean empty){
         if (piece == 'K' && Math.abs(oldPos[0]-newPos[0])==2) return "4" + newPos[0] + " CK";
-        else if (piece == 'P' && newPos[1]==0) return ""+ oldPos[0] + newPos[0] + "QPP";
+        else if (piece == 'P' && newPos[1]==0) {
+            PopUp.createPromotionPopUp();
+            return ""+ oldPos[0] + newPos[0] + PopUp.promotionChoice + "PP";
+        }
         else if (piece == 'P' && empty && Math.abs(oldPos[0]-newPos[0])==1) return ""+ oldPos[0] + newPos[0] + " EP";
         else return "" + oldPos[1] + oldPos[0] + newPos[1] + newPos[0] + piece;
     }

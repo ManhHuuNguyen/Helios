@@ -106,8 +106,8 @@ public class Helper {
             put("7", "h");
         }};
         if (move.charAt(3)=='P'){
-            if (move.charAt(4)=='P') return map.get(Character.toString(move.charAt(1))) + "7" + map.get(Character.toString(move.charAt(3))) + "8" + "Q";
-            else return map.get(Character.toString(move.charAt(1))) + "2" + map.get(Character.toString(move.charAt(3))) + "1" + "q";
+            if (move.charAt(4)=='P') return map.get(Character.toString(move.charAt(0))) + "7" + map.get(Character.toString(move.charAt(1))) + "8" + move.charAt(2);
+            else return map.get(Character.toString(move.charAt(0))) + "2" + map.get(Character.toString(move.charAt(1))) + "1" + move.charAt(2);
         }
         else if (move.charAt(3)=='E'){
             if (move.charAt(4)=='P') return map.get(Character.toString(move.charAt(0))) + "5" + map.get(Character.toString(move.charAt(1))) + "6";
