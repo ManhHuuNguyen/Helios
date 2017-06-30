@@ -95,6 +95,7 @@ public class Helper {
     }
 
     public static String convertMove(String move){
+        if (move.equals("None"))return move;
         HashMap<String, String> map = new HashMap<String, String>(){{
             put("0", "a");
             put("1", "b");

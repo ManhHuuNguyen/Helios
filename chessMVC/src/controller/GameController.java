@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import model.*;
 import view.GameView;
 import view.PopUp;
@@ -17,7 +16,8 @@ public class GameController {
     private static int[] oldPos;
     private static int[] newPos;
     private static boolean hasMoved = false;
-    private static String currentMove;
+    private static String currentMove = "";
+    private static String oCurrentMove = "None";
 
     public static ArrayList<Integer> isChecked(Board board) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -37,15 +37,16 @@ public class GameController {
             @Override
             public void handle(ActionEvent event) {
                 if (hasMoved) {
-                    GameView.updateMove(Helper.convertMove(currentMove), Color.GREEN);
+//                    GameView.updateMove(Helper.convertMove(currentMove), "W");
                     hasMoved = false;
                     String result = checkResult(board);
                     if (result.equals("x")) {
                         currentMove = AI.AImakeMove(board);
+                        oCurrentMove = currentMove;
                         GameView.updatePieces(board);
                         ArrayList<Integer> checkedKings = isChecked(board);
                         GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
-                        GameView.updateMove(Helper.convertMove(currentMove), Color.RED);
+                        GameView.updateMove(Helper.convertMove(currentMove), "B");
                         result = checkResult(board);
                         if (!result.equals("x")) PopUp.createResultPopUp(result);
                     }
@@ -62,6 +63,7 @@ public class GameController {
                     GameView.updatePieces(board);
                     ArrayList<Integer> checkedKings = isChecked(board);
                     GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
+                    GameView.updateMove(Helper.convertMove(oCurrentMove), "B");
                 }
             }
         });
@@ -98,6 +100,7 @@ public class GameController {
                             ArrayList<Integer> checkedKings = isChecked(boardmodel);
                             GameView.updateTiles(highlightedTiles, -1, checkedKings);
                             hasMoved = true;
+                            GameView.updateMove(Helper.convertMove(currentMove), "W");
                         }
                         else {
                             chosenPiece = null;

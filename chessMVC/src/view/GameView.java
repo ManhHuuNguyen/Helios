@@ -3,14 +3,13 @@ package view;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import model.Board;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class GameView {
     public static Tile[] tileList = new Tile[64];
     public static Button makeMoveButton = new Button("", createButtonImg("file:images/forward_btn.png"));
     public static Button retractMoveButton = new Button("", createButtonImg("file:images/backward_btn.png"));
-    public static TextFlow textarea = new TextFlow();
+    public static TextField textarea = new TextField();
 
     public static void initMapPiece(){
         mapPiece.put("K", new Image("file:images/WhiteKing.png"));
@@ -50,6 +49,11 @@ public class GameView {
             label.setFont(new Font("Cambria", 23));
             boardscreen.getChildren().add(label);
         }
+        Label label = new Label("Last move:");
+        label.setTranslateX(120);
+        label.setTranslateY(586);
+        label.setFont(new Font("Cambria", 15));
+        boardscreen.getChildren().add(label);
     }
     private static void addLines(){
         Line lineDown = new Line();
@@ -60,7 +64,7 @@ public class GameView {
         boardscreen.getChildren().add(lineDown);
     }
 
-    public static void addButtons(){
+    private static void addButtons(){
         retractMoveButton.setTranslateX(30);
         retractMoveButton.setTranslateY(582);
         makeMoveButton.setTranslateX(65);
@@ -68,6 +72,15 @@ public class GameView {
         retractMoveButton.setPadding(Insets.EMPTY);
         makeMoveButton.setPadding(Insets.EMPTY);
         boardscreen.getChildren().addAll(retractMoveButton, makeMoveButton);
+    }
+
+    private static void addTextInput(){
+        textarea.setEditable(false);
+        textarea.setTranslateX(205);
+        textarea.setTranslateY(582);
+        textarea.setStyle("-fx-text-fill: white; -fx-background-color: black");
+        textarea.setText("None");
+        boardscreen.getChildren().add(textarea);
     }
 
     public static void initBoard(Board boardModel){
@@ -86,6 +99,7 @@ public class GameView {
                         {8,500},{552,500}});
         addLines();
         addButtons();
+        addTextInput();
         updatePieces(boardModel);
     }
 
@@ -111,11 +125,14 @@ public class GameView {
         }
     }
 
-    public static void updateMove(String moveString, Color color){
-        Text move = new Text(moveString + "\n");
-        move.setFill(color);
-        move.setFont(new Font(15));
-        textarea.getChildren().add(move);
+    public static void updateMove(String moveString, String turn){
+        if (turn.equals("W")) {
+            textarea.setStyle("-fx-text-fill: black; -fx-background-color: white");
+        }
+        else{
+            textarea.setStyle("-fx-text-fill: white; -fx-background-color: black");
+        }
+        textarea.setText(moveString);
     }
 
     public static ImageView createButtonImg(String imageLink){
