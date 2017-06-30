@@ -17,7 +17,7 @@ public class GameController {
     private static int[] newPos;
     private static boolean hasMoved = false;
     private static String currentMove = "";
-    private static String oCurrentMove = "None";
+    private static String oCurrentMove = "None"; // to cache last move
 
     public static ArrayList<Integer> isChecked(Board board) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -37,7 +37,6 @@ public class GameController {
             @Override
             public void handle(ActionEvent event) {
                 if (hasMoved) {
-//                    GameView.updateMove(Helper.convertMove(currentMove), "W");
                     hasMoved = false;
                     String result = checkResult(board);
                     if (result.equals("x")) {
@@ -48,9 +47,9 @@ public class GameController {
                         GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
                         GameView.updateMove(Helper.convertMove(currentMove), "B");
                         result = checkResult(board);
-                        if (!result.equals("x")) PopUp.createResultPopUp(result);
+                        if (!result.equals("x")) PopUp.createResultPopUp(result, currentMove);
                     }
-                    else PopUp.createResultPopUp(result);
+                    else PopUp.createResultPopUp(result, currentMove);
                 }
             }
         });

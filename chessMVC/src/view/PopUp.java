@@ -4,8 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
@@ -68,24 +71,55 @@ public class PopUp {
     }
 
 
-    public static void createResultPopUp(String result){
+    public static void createResultPopUp(String result, String move){
+        String piece = Character.toString(move.charAt(4));
         Stage PopUpWindow = new Stage();
         PopUpWindow.initModality(Modality.APPLICATION_MODAL);
         PopUpWindow.setTitle("RESULT");
-        TextFlow layout = new TextFlow();
-        Text resultTxt;
+        Pane layout = new Pane();
+        Label label = new Label();
+        label.setFont(new Font("Cambria", 16));
+//        Button restart = new Button("Restart");
         switch(result){
             case "W":
-                resultTxt = new Text("White wins!");
+                label.setTranslateX(52);
+                label.setTranslateY(15);
+                label.setText("White wins!");
+                ImageView node = Animated.animate(GameView.mapPiece.get(piece));
+                node.setFitHeight(140);
+                node.setPreserveRatio(true);
+                node.setTranslateX(30);
+                node.setTranslateY(40);
+                layout.getChildren().addAll(label, node);
                 break;
             case "B":
-                resultTxt = new Text("Black wins!");
+                label.setTranslateX(52);
+                label.setTranslateY(15);
+                label.setText("Black wins!");
+                node = Animated.animate(GameView.mapPiece.get(piece));
+                node.setFitHeight(140);
+                node.setPreserveRatio(true);
+                node.setTranslateX(30);
+                node.setTranslateY(40);
+                layout.getChildren().addAll(label, node);
                 break;
             default:
-                resultTxt = new Text("Draw...");
+                label.setTranslateX(80);
+                label.setTranslateY(15);
+                label.setText("Draw...");
+                ImageView node1 = Animated.animate(new Image("file:images/WhiteKing.png"));
+                ImageView node2 = Animated.animate(new Image("file:images/BlackKing.png"));
+                node1.setTranslateX(15);
+                node1.setTranslateY(40);
+                node1.setFitHeight(80);
+                node1.setPreserveRatio(true);
+                node2.setTranslateX(105);
+                node2.setTranslateY(40);
+                node2.setFitHeight(80);
+                node2.setPreserveRatio(true);
+                layout.getChildren().addAll(label, node1, node2);
         }
-        layout.getChildren().add(resultTxt);
-        Scene scene = new Scene(layout, 326, 74);
+        Scene scene = new Scene(layout, 200, 200);
         PopUpWindow.setScene(scene);
         PopUpWindow.showAndWait();
     }

@@ -12,7 +12,7 @@ import view.GameView;
 public class ChessGame extends Application{
 
     public void start (Stage stage) throws Exception{
-        Board board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        Board board = new Board("7k/8/8/8/8/8/8/QKQ5 w KQkq - 0 1");
         Scene scene = new Scene(GameView.boardscreen, 572, 620);
         GameController.addClickEvent(GameView.boardscreen, board);
         GameView.initMapPiece();
