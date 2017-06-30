@@ -4,37 +4,50 @@ import java.util.Arrays;
 
 public class Board {
 
-    public long WK = 0L, WQ = 0L, WR = 0L, WB = 0L, WN = 0L, WP = 0L;
-    public long BK = 0L, BQ = 0L, BR = 0L, BB = 0L, BN = 0L, BP = 0L;
-    public boolean castleWK = true, castleBK = true, castleWQ = true, castleBQ = true;
-    public long oWK = 0L, oWQ = 0L, oWR = 0L, oWB = 0L, oWN = 0L, oWP = 0L;
-    public long oBK = 0L, oBQ = 0L, oBR = 0L, oBB = 0L, oBN = 0L, oBP = 0L;
-    public boolean ocastleWK = true, ocastleBK = true, ocastleWQ = true, ocastleBQ = true;
-    public boolean WhiteTurn = true;
-    public String boardArray[][] = {
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "},
-        {" ", " ", " ", " ", " ", " ", " ", " "}
-    };
-    public String oBoardArray[][] = {
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " "}
-    };
-    public String history = "";
-    public String oHistory = "";
+    public long WK, WQ, WR, WB, WN, WP, BK, BQ, BR, BB, BN, BP;
+    public boolean castleWK, castleBK, castleWQ, castleBQ;
+    public long oWK, oWQ, oWR, oWB, oWN, oWP, oBK, oBQ, oBR, oBB, oBN, oBP;
+    public boolean ocastleWK, ocastleBK, ocastleWQ, ocastleBQ;
+    public boolean WhiteTurn;
+    public String[][] boardArray, oBoardArray;
+    public String history, oHistory;
 
     public Board(String fenString){
+        reset(fenString);
+    }
+
+    public void reset(String fenString){
+
+        WK = 0L; WQ = 0L; WR = 0L; WB = 0L; WN = 0L; WP = 0L;
+        BK = 0L; BQ = 0L; BR = 0L; BB = 0L; BN = 0L; BP = 0L;
+        castleWK = true; castleBK = true; castleWQ = true; castleBQ = true;
+        oWK = 0L; oWQ = 0L; oWR = 0L; oWB = 0L; oWN = 0L; oWP = 0L;
+        oBK = 0L; oBQ = 0L; oBR = 0L; oBB = 0L; oBN = 0L; oBP = 0L;
+        ocastleWK = true; ocastleBK = true; ocastleWQ = true; ocastleBQ = true;
+        WhiteTurn = true;
+        boardArray = new String[][]{
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "}
+        };
+        oBoardArray = new String[][] {
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " "}
+        };
+        history = "";
+        oHistory = "";
+
         String[] items = fenString.split("[/\\s]");
         // PIECES
         for (int i=0; i<8; i++){

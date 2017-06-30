@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Board;
 
 import static view.GameView.createButtonImg;
 
@@ -71,7 +73,7 @@ public class PopUp {
     }
 
 
-    public static void createResultPopUp(String result, String move){
+    public static void createResultPopUp(String result, String move, Board board){
         String piece = Character.toString(move.charAt(4));
         Stage PopUpWindow = new Stage();
         PopUpWindow.initModality(Modality.APPLICATION_MODAL);
@@ -79,7 +81,6 @@ public class PopUp {
         Pane layout = new Pane();
         Label label = new Label();
         label.setFont(new Font("Cambria", 16));
-//        Button restart = new Button("Restart");
         switch(result){
             case "W":
                 label.setTranslateX(52);
@@ -119,6 +120,17 @@ public class PopUp {
                 node2.setPreserveRatio(true);
                 layout.getChildren().addAll(label, node1, node2);
         }
+        Button restart = new Button("Restart");
+        restart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                PopUpWindow.close();
+                GameController.restartGame(board);
+            }
+        });
+        restart.setTranslateX(72);
+        restart.setTranslateY(170);
+        layout.getChildren().add(restart);
         Scene scene = new Scene(layout, 200, 200);
         PopUpWindow.setScene(scene);
         PopUpWindow.showAndWait();

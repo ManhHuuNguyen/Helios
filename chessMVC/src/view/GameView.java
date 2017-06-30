@@ -23,6 +23,7 @@ public class GameView {
     public static Tile[] tileList = new Tile[64];
     public static Button makeMoveButton = new Button("", createButtonImg("file:images/forward_btn.png"));
     public static Button retractMoveButton = new Button("", createButtonImg("file:images/backward_btn.png"));
+    public static Button restartButton = new Button("", createButtonImg("file:images/restart_btn.png"));
     public static TextField textarea = new TextField();
 
     public static void initMapPiece(){
@@ -50,7 +51,7 @@ public class GameView {
             boardscreen.getChildren().add(label);
         }
         Label label = new Label("Last move:");
-        label.setTranslateX(120);
+        label.setTranslateX(150);
         label.setTranslateY(586);
         label.setFont(new Font("Cambria", 15));
         boardscreen.getChildren().add(label);
@@ -69,14 +70,17 @@ public class GameView {
         retractMoveButton.setTranslateY(582);
         makeMoveButton.setTranslateX(65);
         makeMoveButton.setTranslateY(582);
+        restartButton.setTranslateX(100);
+        restartButton.setTranslateY(582);
         retractMoveButton.setPadding(Insets.EMPTY);
         makeMoveButton.setPadding(Insets.EMPTY);
-        boardscreen.getChildren().addAll(retractMoveButton, makeMoveButton);
+        restartButton.setPadding(Insets.EMPTY);
+        boardscreen.getChildren().addAll(retractMoveButton, makeMoveButton, restartButton);
     }
 
     private static void addTextInput(){
         textarea.setEditable(false);
-        textarea.setTranslateX(205);
+        textarea.setTranslateX(235);
         textarea.setTranslateY(582);
         textarea.setStyle("-fx-text-fill: white; -fx-background-color: black");
         textarea.setText("None");

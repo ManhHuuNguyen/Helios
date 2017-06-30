@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -32,7 +33,7 @@ public class GameController {
         return list;
     }
 
-    public static void addSecondaryClickEvent(Button retractButton, Button makeMoveButton, Board board) {
+    public static void addSecondaryClickEvent(Button retractButton, Button makeMoveButton, Button restartButton, Board board) {
         makeMoveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -47,9 +48,9 @@ public class GameController {
                         GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
                         GameView.updateMove(Helper.convertMove(currentMove), "B");
                         result = checkResult(board);
-                        if (!result.equals("x")) PopUp.createResultPopUp(result, currentMove);
+                        if (!result.equals("x")) PopUp.createResultPopUp(result, currentMove, board);
                     }
-                    else PopUp.createResultPopUp(result, currentMove);
+                    else PopUp.createResultPopUp(result, currentMove, board);
                 }
             }
         });
@@ -64,6 +65,12 @@ public class GameController {
                     GameView.updateTiles(new ArrayList<>(), -1, checkedKings);
                     GameView.updateMove(Helper.convertMove(oCurrentMove), "B");
                 }
+            }
+        });
+        restartButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                restartGame(board);
             }
         });
     }
@@ -154,5 +161,24 @@ public class GameController {
             }
             return "x"; // means game continue
         }
+    }
+
+    public static void restartGame(Board board){
+        board.reset("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        GameView.updatePieces(board);
+        GameView.updateTiles(new ArrayList<>(), -1, new ArrayList<>());
+        currentMove="";
+        oCurrentMove="None";
+        GameView.updateMove(oCurrentMove , "B");
+    }
+
+    public static Scene startNewGame(){
+        Board board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        Scene scene = new Scene(GameView.boardscreen, 572, 620);
+        addClickEvent(GameView.boardscreen, board);
+        addSecondaryClickEvent(GameView.retractMoveButton, GameView.makeMoveButton, GameView.restartButton, board);
+        GameView.initMapPiece();
+        GameView.initBoard(board);
+        return scene;
     }
 }

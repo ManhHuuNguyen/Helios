@@ -12,16 +12,11 @@ import view.GameView;
 public class ChessGame extends Application{
 
     public void start (Stage stage) throws Exception{
-        Board board = new Board("7k/8/8/8/8/8/8/QKQ5 w KQkq - 0 1");
-        Scene scene = new Scene(GameView.boardscreen, 572, 620);
-        GameController.addClickEvent(GameView.boardscreen, board);
-        GameView.initMapPiece();
-        GameView.initBoard(board);
+        Scene scene = GameController.startNewGame();
         stage.setTitle("Helios");
         stage.getIcons().add(new Image("file:images/icon.png"));
         stage.setScene(scene);
         stage.show();
-        GameController.addSecondaryClickEvent(GameView.retractMoveButton, GameView.makeMoveButton, board);
     }
 
     public static void main(String[] args){
