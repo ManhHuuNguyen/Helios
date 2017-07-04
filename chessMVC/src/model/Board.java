@@ -214,7 +214,7 @@ public class Board {
     public void movePiece(String moveString){
         // moveString 5 characters: old row old column, new row new column, piece name
         int oldRow, oldColumn, newRow, newColumn;
-        history += moveString;
+        history = moveString;
         WhiteTurn = !WhiteTurn;
         if (moveString.charAt(3) == 'P'){ // promotion
             if (moveString.charAt(4)=='P'){ // white pawn

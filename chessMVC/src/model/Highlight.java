@@ -210,11 +210,10 @@ public class Highlight {
                     possibility = pawnMoves & (~(pawnMoves - 1));
                 }
                 // enpassant
-                int lastIndex = board.history.length() - 1;
-                if (lastIndex >= 3) {
-                    if ((board.history.charAt(lastIndex) == board.history.charAt(lastIndex - 2)) &&
-                            ((board.history.charAt(lastIndex - 3) - '0') + 2 == (board.history.charAt(lastIndex - 1) - '0'))) {
-                        int enpassantColumn = board.history.charAt(lastIndex) - '0';
+                if (board.history.length()>0) {
+                    if ((board.history.charAt(3) == board.history.charAt(1)) &&
+                            ((board.history.charAt(0) - '0') + 2 == (board.history.charAt(2) - '0'))) {
+                        int enpassantColumn = board.history.charAt(3) - '0';
                         // en passant right
                         possibility = ((((singlePieceBoard & (~columns[7])) << 1) & board.BP & rows[3] & columns[enpassantColumn]) >> 8) & EMPTY;
                         if (possibility != 0){

@@ -147,28 +147,27 @@ public class Evaluation {
     };
 
     public static double evaluate(long WK, long WQ, long WR, long WB, long WN, long WP,
-                               long BK, long BQ, long BR, long BB, long BN, long BP){
+                                  long BK, long BQ, long BR, long BB, long BN, long BP, int moveLength){
+        return rateMaterialScore(WQ,WR,WB,WN,WP,BQ,BR,BB,BN,BP) +
+                ratePositionalScore(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP) +
+                rateControlScore(WK,WQ,WR,WB,WN,WP,BK,BQ,BR,BB,BN,BP,moveLength);
+    }
 
-        // find another way to check mate score
-        int K = Long.bitCount(WK);
+    public static double rateControlScore(long WK, long WQ, long WR, long WB, long WN, long WP,
+                                         long BK, long BQ, long BR, long BB, long BN, long BP, int moveLength){
+        return moveLength + Long.bitCount(Moves.BKdangerZone(WK, WQ, WR, WB, WN, WP, BQ, BR, BB, BN, BP))*5
+                - Long.bitCount(Moves.WKdangerZone(WQ, WR, WB, WN, WP, BK, BQ, BR, BB, BN, BP))*5;
+    }
+
+    public static double ratePositionalScore(long WK, long WQ, long WR, long WB, long WN, long WP,
+                                             long BK, long BQ, long BR, long BB, long BN, long BP){
         int Q = Long.bitCount(WQ);
-        int R = Long.bitCount(WR);
-        int B = Long.bitCount(WB);
-        int N = Long.bitCount(WN);
-        int P = Long.bitCount(WP);
-        int k = Long.bitCount(BK);
         int q = Long.bitCount(BQ);
-        int r = Long.bitCount(BR);
-        int b = Long.bitCount(BB);
-        int n = Long.bitCount(BN);
-        int p = Long.bitCount(BP);
-        int materialScore = (k-K)*20000 + (q-Q)*900 +(r-R)*500 + (b-B)*330 + (n-N)*320 + (p-P)*100;
-
-        int positionScore = 0;
+        double positionScore = 0;
         while (WP != 0){
             int position = Long.numberOfTrailingZeros(WP);
-             positionScore -= WPtable[position];
-             WP = WP ^ (1L<<position);
+            positionScore -= WPtable[position];
+            WP = WP ^ (1L<<position);
         }
         while (WQ != 0){
             int position = Long.numberOfTrailingZeros(WQ);
@@ -226,6 +225,24 @@ public class Evaluation {
             positionScore -= WKmiddleGame[WKposition];
             positionScore += BKmiddleGame[BKposition];
         }
-        return materialScore + positionScore;
+        return positionScore;
     }
+
+    private static double rateMaterialScore(long WQ, long WR, long WB, long WN, long WP,
+                                            long BQ, long BR, long BB, long BN, long BP){
+        int Q = Long.bitCount(WQ);
+        int R = Long.bitCount(WR);
+        int B = Long.bitCount(WB);
+        int N = Long.bitCount(WN);
+        int P = Long.bitCount(WP);
+        int q = Long.bitCount(BQ);
+        int r = Long.bitCount(BR);
+        int b = Long.bitCount(BB);
+        int n = Long.bitCount(BN);
+        int p = Long.bitCount(BP);
+        int blackBishopValue = (b==1) ? 300 : 330;
+        int whiteBishopValue = (B==1) ? 300 : 330;
+        return (q-Q)*900 +(r-R)*500 + b*blackBishopValue - B*whiteBishopValue + (n-N)*320 + (p-P)*100;
+    }
+
 }

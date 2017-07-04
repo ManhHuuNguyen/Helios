@@ -24,12 +24,12 @@ public class ChessGame extends Application{
     }
 
     public static void main2 (String[] args){
-        Board board = new Board("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -");
+        Board board = new Board("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10");
         long startTime = System.nanoTime();
         int result = Perft.perftRoot(board.WK, board.WQ, board.WR, board.WB, board.WN, board.WP,
         board.BK, board.BQ, board.BR, board.BB, board.BN, board.BP,
         board.castleWK, board.castleWQ, board.castleBK, board.castleBQ,
-        board.WhiteTurn, board.history, 0, 4);
+        board.WhiteTurn, board.history, 0, 5);
         long endTime = System.nanoTime();
         System.out.println("There are: " + result + " nodes");
         System.out.println("It takes " + ((endTime-startTime)/1000000000) + " seconds");

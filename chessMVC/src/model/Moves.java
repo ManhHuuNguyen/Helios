@@ -311,11 +311,10 @@ public class Moves {
         }
 
         // en passant x1 x2 Space EP (bc y1=3 y2=2 is obvious, enpassant only happens on certain rows)
-        int lastIndex = history.length()-2;
-        if (lastIndex >= 3 && history.charAt(lastIndex+1)=='p'){
-            if ((history.charAt(lastIndex)==history.charAt(lastIndex-2))&&
-                    ((history.charAt(lastIndex-3)-'0')+2==(history.charAt(lastIndex-1)-'0'))){
-                int enpassantColumn = history.charAt(lastIndex)-'0';
+        if (history.length()>0 && history.charAt(4)=='p'){
+            if ((history.charAt(3)==history.charAt(1))&&
+                    ((history.charAt(0)-'0')+2==(history.charAt(2)-'0'))){
+                int enpassantColumn = history.charAt(3)-'0';
                 // en passant right
                 possibility = ((((WP&(~columns[7]))<<1)&BP&rows[3]&columns[enpassantColumn])>>8)&EMPTY;
                 if (possibility != 0) moveString += (enpassantColumn-1) + "" + enpassantColumn + " EP";
@@ -500,11 +499,10 @@ public class Moves {
         }
 
         // en passant x1 x2 Space Ep (bc y1=3 y2=2 is obvious, enpassant only happens on certain rows)
-        int lastIndex = history.length()-2;
-        if (lastIndex >= 3 && history.charAt(lastIndex+1)=='P'){
-            if ((history.charAt(lastIndex)==history.charAt(lastIndex-2))&&
-                    ((history.charAt(lastIndex-3)-'0')-2==(history.charAt(lastIndex-1)-'0'))){
-                int enpassantColumn = history.charAt(lastIndex)-'0';
+        if (history.length()>0 && history.charAt(4)=='P'){
+            if ((history.charAt(3)==history.charAt(1))&&
+                    ((history.charAt(0)-'0')-2==(history.charAt(2)-'0'))){
+                int enpassantColumn = history.charAt(3)-'0';
                 // en passant right
                 possibility = ((((BP&(~columns[0]))>>1)&WP&rows[4]&columns[enpassantColumn])<<8)&EMPTY;
                 if (possibility != 0) moveString += (enpassantColumn+1) + "" + enpassantColumn + " Ep";
